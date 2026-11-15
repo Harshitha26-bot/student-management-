@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+
+    <style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #141e30, #243b55, #512b81);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 22px;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #00dbde, #fc00ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.header p {
+    color: #d5d5e8;
+}
+
+h2 {
+    margin: 25px 0;
+    font-size: 22px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #eeeeff;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    outline: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #c4c4d5;
+}
+
+input:focus {
+    border-color: #00dbde;
+    box-shadow: 0 0 12px rgba(0,219,222,0.5);
+    transform: scale(1.01);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #00c6ff, #8e2de2);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0,198,255,0.4);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.success-message {
+    background: rgba(46,204,113,0.2);
+    color: #8cffb5;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    min-width: 450px;
+}
+
+th, td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+th {
+    background: rgba(0,198,255,0.2);
+    color: #80eaff;
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #ccccdd;
+    font-size: 13px;
+}
+</style>
+       
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Student Management System</h1>
+            <p>Manage student information easily</p>
+        </div>
+
+        <h2>Register Student</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" name="student_name" placeholder="Enter student name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="Enter email address" required>
+            </div>
+
+            <div class="form-group">
+                <label>Course</label>
+                <input type="text" name="course" placeholder="Enter course name" required>
+            </div>
+
+            <button type="submit">Register Student →</button>
+        </form>
+        {% if message %}
+    <p class="success-message">{{ message }}</p>
+{% endif %}
+
+<h2>Registered Students</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student['id'] }}</td>
+                <td>{{ student['student_name'] }}</td>
+                <td>{{ student['email'] }}</td>
+                <td>{{ student['course'] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">No students registered yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+        <div class="footer">
+            Student Management System | DevOps Project
+        </div>
+
+    </div>
+
+</body>
+</html>
